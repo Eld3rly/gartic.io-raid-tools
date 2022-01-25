@@ -11,9 +11,6 @@ const colors = [
     "FF00FF",
 ];
 
-// process.on("unhandledRejection", _=>{})
-// process.on("uncaughtException",_=>{})
-
 class Client extends EventEmitter {
     constructor(info = {}) {
 
