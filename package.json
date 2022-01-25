@@ -1,0 +1,30 @@
+{
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "prompts": "^2.4.2",
+    "ws": "^8.4.2"
+  },
+  "name": "gartic.io-raid-tools",
+  "description": "<img src=\"https://cdn.upload.systems/uploads/RRzSjTjj.png\" width=\"900\">",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo hello world"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Eld3rly/gartic.io-raid-tools.git"
+  },
+  "keywords": [
+    "gartic.io",
+    "rait",
+    "tools"
+  ],
+  "author": "Eld3rly",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Eld3rly/gartic.io-raid-tools/issues"
+  },
+  "homepage": "https://github.com/Eld3rly/gartic.io-raid-tools#readme"
+}
