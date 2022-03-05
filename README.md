@@ -26,7 +26,7 @@ Finally, run it:
 $ node index.js
 ```
 
-## Coommands
+## Commands
 
 ### Spam:
 
