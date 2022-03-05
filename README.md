@@ -76,7 +76,7 @@ Example:
     "name": "Example",
     "invite": "0000",
     "amount": 0,
-    "message": "Example",
+    "message": "Example"
 }
 ```
 
