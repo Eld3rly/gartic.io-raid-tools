@@ -13,7 +13,6 @@ const colors = [
 
 class Client extends EventEmitter {
     constructor(info = {}) {
-
         super();
 
         if (!info.id || !info.invite || !info.name) {
@@ -111,7 +110,7 @@ class Client extends EventEmitter {
         this.disconnect();
         return true;
     }
-
+    
 }
 
 module.exports = Client;
