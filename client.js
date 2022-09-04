@@ -95,7 +95,7 @@ class Client extends EventEmitter {
     }
     voteKick(id) {
         if(this.destroyed) return;
-        this.ws.send(`42[45,${this.room[2]},[${id},true]`);
+        this.ws.send(`42[45,${this.room[2]},[${typeof id == "string"? `"${id}"`:`${id}`},true]]`);
         return this;
     }
     disconnect() {

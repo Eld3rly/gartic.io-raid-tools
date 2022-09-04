@@ -199,7 +199,81 @@ async function main() {
             console.log(chalk.red("Cannot read file!"));
             main();
         }
-    } else {
+    } else if(input.command == "ckick"){
+		const input = await prompts([
+			{
+				type: "number",
+				name: "id",
+				message: "Enter the server ID",
+			},
+			{
+				type: "text",
+				name: "invite",
+				message: "Enter the invite code",
+			},
+			{
+				type: "text",
+				name: "name",
+				message: "Enter a name for bots",
+			},
+			{
+				type: "number",
+				name: "amount", // 31J2
+				message: "Enter the amount of bots to spawn",
+			}
+		]);
+		if (!input.id || !input.invite || !input.name || !input.amount) {
+			console.log(chalk.red("Please enter all the required information"));
+			return main();
+		}
+		console.log(chalk.magenta("Press Ctrl+C to stop"));
+		console.log(chalk.green("Verifying server..."));
+		const check = new Client({id: input.id, invite: input.invite, name: "Anonymous"});
+		check.on("roomConnected", async data => {
+			console.log(chalk.green("Server verified!"));
+			check.disconnect();
+			const users = data[5].map((user, index) => (chalk.cyan(`[${index}]`)+" "+chalk.green(user.nick)+chalk.yellow(" - ")+chalk.red(user.id)) );
+			
+			console.log(chalk.green("Users:"));
+			console.log(users.join("\n"));
+
+			const input2 = await prompts([
+				{
+					type: "number",
+					name: "id",
+					message: "Enter the Index of the user to kick",
+				}
+			]);
+			if(!data[5][input2.id]) {
+				console.log(chalk.red("Invalid Index!"));
+				return main();
+			}
+
+			for (let i = 0; i < input.amount; i++) {
+				console.log(chalk.green(`Spawning bot ${i+1}/${input.amount}`));
+				const bot = new Client({id: input.id, invite: input.invite, name: `${input.name}${i+1}`})
+				bots.push(bot);
+				bot.on("roomConnected", _ =>{
+
+					setTimeout(() => {
+						console.log(chalk.green(`Kicking user ${data[5][input2.id].nick} (${data[5][input2.id].id})`));
+						bot.voteKick(data[5][input2.id].id);
+					}, Math.floor(Math.random() * 29000) + 1);
+					setTimeout(() => {
+						bot.disconnect();
+					}, 30000);
+				})
+				bot.on("disconnected", bot.connect);
+				bot.connect()
+			}
+		});
+		check.on("roomInvalid", data => {
+			console.log(chalk.red("Server not found!"));
+			check.disconnect();
+			main();
+		});
+		check.connect();
+	} else {
         console.log(chalk.red("Invalid command! use help to see the commands"));
         main();
     }
@@ -211,7 +285,8 @@ function showCommands() {
     - clear: Clear the console
     - connect: Connect to a server
     - spam: Spam a message to the server
-    - cfg: Lauch attack by config`));
+    - cfg: Lauch attack by config
+	- ckick: Kick a user in a server`));
 }
 main();
 
